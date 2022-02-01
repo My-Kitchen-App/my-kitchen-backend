@@ -1,0 +1,26 @@
+{
+  "name": "my-kitchen-backend",
+  "version": "1.0.0",
+  "description": "This app takes in available ingredients from the user and calls upon the spoonacular API to present the user a variety of recipes using said ingredients. The app consists of a backend RESTful API built with express and node.js, and a React client frontend using the bootstrap library.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/My-Kitchen-App/my-kitchen-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/My-Kitchen-App/my-kitchen-backend/issues"
+  },
+  "homepage": "https://github.com/My-Kitchen-App/my-kitchen-backend#readme",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "cors": "^2.8.5",
+    "dotenv": "^15.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.9"
+  }
+}
