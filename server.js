@@ -5,10 +5,11 @@ require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const { response } = require('express');
 const mongoose = require('mongoose');
 const Recipe = require('./Model/recipe');
-const verifyUser = require('./auth.js');
+const Instructions = require('./Model/instructions');
+
+//const verifyUser = require('./auth.js');
 
 // mongoose connection
 mongoose.connect(process.env.DB_URL)
@@ -29,7 +30,8 @@ app.get('/saved-recipes', handleGetSavedRecipes);
 app.post('/recipe', handlePostRecipe);
 app.delete('/recipe/:id', handleDeleteRecipe);
 app.put('/recipe/:id', handlePutRecipe);
-app.get('/user', handleGetUser);
+app.get('/analyzedInstructions', handleGetAnalyzedInstructions); 
+//app.get('/user', handleGetUser);
 
 async function handleGetRecipes(req, res) {
   let ingredient = req.query.ingredient;
@@ -52,28 +54,27 @@ class RecipeData {
 }
 
 async function handleGetSavedRecipes(req, res) {
-  // let queryObject = {}
-  // if (req.query.email) {
-  //   queryObject = {
-  //     email: req.query.email
-  //   }
-  verifyUser(req, async (err, user) => {
-    if (err) {
-      console.error(err);
-      res.send('invalid token');
-    } else {
-      try {
-        let savedRecipes = await Recipe.find({ email: user.email });
-        if (savedRecipes.length > 0) {
-          res.status(200).send(savedRecipes);
-        } else {
-          res.status(404).send('No Recipes Found');
-        }
-      } catch (err) {
-        res.status(500).send('Server Error');
-      }
+  let queryObject = {}
+  if (req.query.email) {
+    queryObject = {
+      email: req.query.email
     }
-  });
+    // verifyUser(req, async (err, user) => {
+    //   if (err) {
+    //     console.error(err);
+    //     res.send('invalid token');
+    //   } else {
+    try {
+      let savedRecipes = await Recipe.find({ queryObject });
+      if (savedRecipes.length > 0) {
+        res.status(200).send(savedRecipes);
+      } else {
+        res.status(404).send('No Recipes Found');
+      }
+    } catch (err) {
+      res.status(500).send('Server Error');
+    }
+  }
 }
 
 async function handlePostRecipe(req, res) {
@@ -109,16 +110,29 @@ async function handlePutRecipe(req, res) {
 }
 
 
-function handleGetUser(req, res) {
-  verifyUser(req, (err, user) => {
-    if (err) {
-      console.log(err);
-      res.send('invalid token');
-    } else {
-      res.send(user);
-    }
-  });
+async function handleGetAnalyzedInstructions(req, res) {
+  let recipeid = req.query.recipeid;
+ 
+  const url = `https://api.spoonacular.com/recipes/${recipeid}/analyzedInstructions?apiKey=${process.env.API_KEY}`
+
+  let instructions = await axios.get(url)
+  console.log(instructions.data);
+  let groomedInstructions = instructions.data.map(obj => new Instructions(obj));
+  console.log(groomedInstructions);
+  res.send(groomedInstructions);
 }
+
+
+// function handleGetUser(req, res) {
+//   verifyUser(req, (err, user) => {
+//     if (err) {
+//       console.log(err);
+//       res.send('invalid token');
+//     } else {
+//       res.send(user);
+//     }
+//   });
+// }
 
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
