@@ -117,9 +117,16 @@ async function handleGetAnalyzedInstructions(req, res) {
 
   let instructions = await axios.get(url)
   console.log(instructions.data);
-  let groomedInstructions = instructions.data.map(obj => new Instructions(obj));
+  let groomedInstructions = instructions.data.map(obj => new InstructionsData(obj));
   console.log(groomedInstructions);
   res.send(groomedInstructions);
+}
+
+
+class InstructionsData {
+  constructor(instructions) {
+    this.steps = instructions.steps
+  }
 }
 
 
