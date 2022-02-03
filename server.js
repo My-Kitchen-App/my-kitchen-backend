@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const mongoose = require('mongoose');
-const Recipe = require('./Model/recipe');
+const Recipe = require('./model/recipe');
 //const Instructions = require('./Model/instructions');
 
 const verifyUser = require('./auth.js');
