@@ -9,6 +9,7 @@ const recipeSchema = new Schema ({
   image: { type: String },
   apiId: { type: Number },
   notes: { type: String },
+  instructions: { type: Array },
   usedIngredients: { type: Array },
   missedIngredients: { type: Array },
   missedIngredientsCount: { type: Number }
