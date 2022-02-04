@@ -6,7 +6,7 @@ The vision of My Kitchen is to create an app that allows users to enter their av
 
 My Kitchen aims to solve the logistical dilemma of using remaining pantry items and incorporating them into delicious recipes
 
-**Version**: 1.0.0
+**Version**: 1.0.5
 
 ## Contributors
 
@@ -37,3 +37,25 @@ My Kitchen aims to solve the logistical dilemma of using remaining pantry items 
   * Ex: <https://spoonacular.com/food>*api/docs#Get*Analyzed*Recipe*Instructions
 * GET <https://api.spoonacular.com/recipes/findByIngredients>
   * <https://spoonacular.com/food>*api/docs#Search*Recipes*by*Ingredients
+
+Features log
+
+Day 1
+  - Added basic routes and scaffolded async route handler funcs
+  - Created db document Schema
+  - Basic GET route working: Successful integration of Spoonacular API with frontend client requests
+
+Day 2
+  - MongoDB/Mongoose integration successful: POST, DELETE and PUT routes working with MongoDB
+  - db Schema updated for frontend object requirements
+  - added 2 other GET routes and respective route handler funcs:
+    - one for hitting the Spoonacular API for recipe instructions
+    - one for hitting mongoDB and retrieve user saved information
+
+Day 3 
+  - Auth0 implemented for the basic GET route which hits the Spoonacular API
+  - Auth0 file added
+
+Day 4
+  - Added functionality for multiple ingredient searches
+  - Auth0 implemented for other route handlers
