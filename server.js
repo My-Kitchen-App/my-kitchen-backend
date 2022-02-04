@@ -34,7 +34,7 @@ app.get('/user', handleGetUser);
 
 async function handleGetRecipes(req, res) {
   let ingredient = req.query.ingredient;
-  const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&number=5&apiKey=${process.env.API_KEY}`
+  const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&number=15&apiKey=${process.env.API_KEY}`
   let recipes = await axios.get(url)
   // console.log(recipes.data);
   let groomedRecipes = recipes.data.map(obj => new RecipeData(obj));
