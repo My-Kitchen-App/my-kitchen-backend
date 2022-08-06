@@ -1,3 +1,8 @@
+
+
 API_KEY=SECRET
+
 DB_URL=SECRET
+
+
 JWKS_URI=your-jwks-uri-from-Auth0-docs
